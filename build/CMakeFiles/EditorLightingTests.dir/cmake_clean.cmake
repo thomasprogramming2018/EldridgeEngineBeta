@@ -1,0 +1,41 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/EditorLightingTests.dir/link.d"
+  "CMakeFiles/EditorLightingTests_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/EditorLightingTests_autogen.dir/ParseCache.txt"
+  "EditorLightingTests_autogen"
+  "CMakeFiles/EditorLightingTests.dir/EditorLightingTests_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/EditorLightingTests_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/assets/MeshImporter.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/assets/MeshImporter.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/componentsBackend/LightComponent/LightComponent.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/componentsBackend/LightComponent/LightComponent.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/componentsBackend/MeshComponent/MeshComponent.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/componentsBackend/MeshComponent/MeshComponent.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/componentsBackend/TerrainComponent/TerrainComponent.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/componentsBackend/TerrainComponent/TerrainComponent.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/componentsBackend/TransformComponent/TransformComponent.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/componentsBackend/TransformComponent/TransformComponent.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/editor/TransformGizmo.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/editor/TransformGizmo.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/material/Material.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/material/Material.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/project/ProjectFile.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/project/ProjectFile.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/scene/Scene.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/scene/Scene.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/scene/SceneObject.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/scene/SceneObject.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/scene/SceneSerialization.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/src/modules/scene/SceneSerialization.cpp.o.d"
+  "CMakeFiles/EditorLightingTests.dir/tests/EditorLightingTests.cpp.o"
+  "CMakeFiles/EditorLightingTests.dir/tests/EditorLightingTests.cpp.o.d"
+  "EditorLightingTests"
+  "EditorLightingTests.pdb"
+  "EditorLightingTests_autogen/mocs_compilation.cpp"
+  "EditorLightingTests_autogen/timestamp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/EditorLightingTests.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

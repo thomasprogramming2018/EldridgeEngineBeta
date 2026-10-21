@@ -1,0 +1,11 @@
+Camera 17 0.000696059
+MeshCreation 17 0.0014163
+ShaderAssets 14 0.0464664
+ScenePersistence 13 0.00149712
+ProjectAndPrefab 11 0.00509888
+SoftwareRayTracer 12 0.0014745
+Rendering 11 0.231
+HardwareRayTracing 10 0.13444
+Terrain 10 0.0233123
+EditorLighting 3 0.0129895
+---

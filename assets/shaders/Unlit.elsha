@@ -1,0 +1,9 @@
+{
+    "version": 1,
+    "name": "Unlit",
+    "vertexSource": "#version 330 core\nlayout (location=0) in vec3 aPosition;\nlayout (location=1) in vec3 aNormal;\nlayout (location=2) in vec2 aUV;\nuniform mat4 uModel;\nuniform mat4 uView;\nuniform mat4 uProjection;\nout vec3 vNormal;\nout vec3 vWorldPosition;\nout vec2 vUV;\nvoid main() {\n    vec4 world = uModel * vec4(aPosition, 1.0);\n    vWorldPosition = world.xyz;\n    vNormal = mat3(transpose(inverse(uModel))) * aNormal;\n    vUV = aUV;\n    gl_Position = uProjection * uView * world;\n}\n",
+    "fragmentSource": "#version 330 core\nin vec3 vNormal;\nin vec3 vWorldPosition;\nin vec2 vUV;\nlayout(location = 0) out vec4 FragColor;\nlayout(location = 1) out vec4 Surface;\nuniform vec3 uBaseColor;\nuniform vec4 uTintColor;\nuniform vec2 uUVScale;\nuniform bool uUseTexture;\nuniform sampler2D uAlbedo;\nvoid main() {\n    vec3 sampled = uUseTexture ? texture(uAlbedo, vUV * uUVScale).rgb : vec3(1.0);\n    Surface = vec4(normalize(vNormal) * 0.5 + 0.5, 1.0);\n    FragColor = vec4(uBaseColor * uTintColor.rgb * sampled, uTintColor.a);\n}\n",
+    "rendering": {
+        "affectedByLights": false
+    }
+}

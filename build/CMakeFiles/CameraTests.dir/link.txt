@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/CameraTests.dir/link.d CMakeFiles/CameraTests.dir/CameraTests_autogen/mocs_compilation.cpp.o CMakeFiles/CameraTests.dir/tests/CameraTests.cpp.o -o CameraTests  /usr/lib/x86_64-linux-gnu/libQt6Gui.so.6.8.2 /usr/lib/x86_64-linux-gnu/libGLX.so /usr/lib/x86_64-linux-gnu/libOpenGL.so /usr/lib/x86_64-linux-gnu/libQt6Core.so.6.8.2

@@ -1,0 +1,13 @@
+<RCC><qresource prefix="/shaders">
+  <file alias="basic.vert">basic.vert</file>
+  <file alias="lit.frag">lit.frag</file>
+  <file alias="unlit.frag">unlit.frag</file>
+  <file alias="pbr.vert">pbr.vert</file>
+  <file alias="pbr.frag">pbr.frag</file>
+  <file alias="post.vert">post.vert</file>
+  <file alias="post.frag">post.frag</file>
+  <file alias="hdrp.frag">hdrp.frag</file>
+  <file alias="denoise.comp.spv">denoise.comp.spv</file>
+  <file alias="hardware.comp.spv">hardware.comp.spv</file>
+  <file alias="temporal-lighting.frag">temporal-lighting.frag</file>
+</qresource></RCC>

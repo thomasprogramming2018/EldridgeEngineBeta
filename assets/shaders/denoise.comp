@@ -1,0 +1,65 @@
+#version 460
+layout(local_size_x=8,local_size_y=8) in;
+struct RawPixel { vec4 sum, normalDepth, albedoRoughness, moments; };
+layout(std430,set=0,binding=1) readonly buffer RawImage { RawPixel pixels[]; };
+layout(std140,set=0,binding=4) uniform Camera { mat4 inverseVP; vec4 eye,sun,options,render,filterSettings,visualSun; } camera;
+layout(std430,set=0,binding=9) buffer FilterA { vec4 a[]; };
+layout(std430,set=0,binding=10) buffer FilterB { vec4 b[]; };
+struct PackedPixel { vec4 sum,normalDepth; };
+layout(std430,set=0,binding=11) writeonly buffer PackedImage { PackedPixel outputPixels[]; };
+layout(push_constant) uniform Parameters { uint width,height,start,samples,bounces,triangleCount,pad0,pass; } parameters;
+float luminance(vec3 color) { return dot(color,vec3(.2126,.7152,.0722)); }
+vec4 sourceAt(uint index)
+{
+    if(parameters.pass==0)
+    {
+        float n=max(pixels[index].sum.w,1.0);
+        float mean=pixels[index].moments.x/n;
+        float variance=max(0.0,pixels[index].moments.y/n-mean*mean)/n;
+        return vec4(pixels[index].sum.rgb/n,variance);
+    }
+    return (parameters.pass&1u)==1u?a[index]:b[index];
+}
+void main()
+{
+    uvec2 xy=gl_GlobalInvocationID.xy;
+    if(xy.x>=parameters.width||xy.y>=parameters.height) return;
+    uint index=xy.y*parameters.width+xy.x;
+    RawPixel center=pixels[index];
+    if(parameters.pass>=128)
+    {
+        uint count=parameters.pass-128;
+        vec3 color=count==0?center.sum.rgb/max(center.sum.w,1.0):((count&1u)==1u?a[index].rgb:b[index].rgb);
+        outputPixels[index].sum=vec4(color*center.sum.w,center.sum.w);
+        outputPixels[index].normalDepth=center.normalDepth;
+        return;
+    }
+    vec4 value=sourceAt(index);
+    vec3 total=vec3(0); float weightSum=0,varianceSum=0;
+    int stride=1<<int(parameters.pass);
+    const float kernel[5]=float[5](1,4,6,4,1);
+    // A variance floor keeps the first few samples from becoming isolated dots.
+    float sigma=camera.filterSettings.x*(sqrt(max(value.w,0.0))*3.0+.12+.15*luminance(value.rgb));
+    for(int y=-2;y<=2;++y) for(int x=-2;x<=2;++x)
+    {
+        ivec2 q=ivec2(xy)+ivec2(x,y)*stride;
+        if(any(lessThan(q,ivec2(0)))||q.x>=int(parameters.width)||q.y>=int(parameters.height)) continue;
+        uint other=uint(q.y)*parameters.width+uint(q.x);
+        RawPixel guide=pixels[other];
+        if(abs(center.moments.z-guide.moments.z)>.1) continue;
+        float weight=kernel[x+2]*kernel[y+2];
+        if(center.normalDepth.w>0.0)
+        {
+            weight*=pow(max(dot(center.normalDepth.xyz,guide.normalDepth.xyz),0.0),32.0);
+            float threshold=.01*center.normalDepth.w+.02*float(stride);
+            weight*=exp(-abs(center.normalDepth.w-guide.normalDepth.w)/threshold);
+            weight*=exp(-length(center.albedoRoughness.rgb-guide.albedoRoughness.rgb)*12.0);
+            weight*=exp(-abs(center.albedoRoughness.w-guide.albedoRoughness.w)*16.0);
+        }
+        vec4 sampleValue=sourceAt(other);
+        weight*=exp(-abs(luminance(value.rgb)-luminance(sampleValue.rgb))/max(sigma,.001));
+        total+=sampleValue.rgb*weight; varianceSum+=sampleValue.w*weight*weight; weightSum+=weight;
+    }
+    vec4 result=vec4(total/max(weightSum,.00001),varianceSum/max(weightSum*weightSum,.00001));
+    if((parameters.pass&1u)==0u) a[index]=result; else b[index]=result;
+}

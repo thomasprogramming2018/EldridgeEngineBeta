@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360">
+<rect width="720" height="360" fill="#101926"/>
+<path d="M0 290L145 120L275 270L410 70L720 320V360H0Z" fill="#1d344b"/>
+<circle cx="550" cy="95" r="40" fill="#86b7cb"/>
+<text x="36" y="70" fill="white" font-family="sans-serif" font-size="32">ELDRIDGE ENGINE</text>
+<text x="36" y="325" fill="#bacddd" font-family="sans-serif" font-size="16">Loading image placeholder</text>
+</svg>
